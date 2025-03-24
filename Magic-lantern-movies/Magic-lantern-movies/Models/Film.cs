@@ -15,7 +15,9 @@ namespace Models
         Animation,
         Adventure,
         Fantasy,
-        Thriller
+        Thriller,
+        Crime,
+        Tragedy
     }
     public enum AgeRatings
     {
@@ -38,6 +40,7 @@ namespace Models
         public Guid ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public string Image { get; set; }
         public Ratings Rating { get; set; }
         public List<Categories> Categories { get; set; }
         public List<string> Actors { get; set; }

@@ -14,8 +14,9 @@ namespace Services
                 Name = "The Shawshank Redemption",
                 Description = "A banker convicted of uxoricide forms a friendship over a quarter century with a hardened convict, while maintaining his innocence and trying to remain hopeful through simple compassion.",
                 Rating = Ratings.VeryGood,
+                Image = "https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg",
                 Categories = new()
-                { 
+                {
                     Categories.Drama
                 },
                 Actors = new()
@@ -33,6 +34,7 @@ namespace Services
                 Name = "The Godfather",
                 Description = "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
                 Rating = Ratings.VeryGood,
+                Image = "https://upload.wikimedia.org/wikipedia/en/1/1c/Godfather_ver1.jpg",
                 Categories = new()
                 {
                     Categories.Drama, Categories.Tragedy, Categories.Crime
