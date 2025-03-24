@@ -39,8 +39,8 @@ namespace Models
         public string Name { get; set; }
         public string Description { get; set; }
         public Ratings Rating { get; set; }
-        public Categories Category { get; set; }
-        public IEnumerable<string> Actors { get; set; }
+        public List<Categories> Categories { get; set; }
+        public List<string> Actors { get; set; }
         public DateTime PublicationDate { get; set; }
         public string OriginalLanguage { get; set; }
         public string Director { get; set; }
