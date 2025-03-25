@@ -35,7 +35,7 @@ namespace Models
         Good,
         VeryGood
     }
-    public class Film
+    public class Movie
     {
         public Guid ID { get; set; }
         public string Name { get; set; }

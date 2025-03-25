@@ -21,5 +21,16 @@ namespace Data
             var table = await GetTableAsync<TTable>();
             return await table.ToListAsync();
         }
+
+        public async Task<AsyncTableQuery<TTable>> GetTableAsync<TTable>() where TTable : class, new()
+        {
+            await CreateTableIfNotExists<TTable>();
+            return Database.Table<TTable>();
+        }
+
+        public async Task CreateTableIfNotExists<TTable>() where TTable : class, new()
+        {
+            await Database.CreateTableAsync<TTable>();
+        }
     }
 }

@@ -4,7 +4,6 @@ using System.Collections.ObjectModel;
 using System.Text;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Data;
-using IntelliJ.Lang.Annotations;
 using Models;
 
 namespace ViewModels
@@ -18,7 +17,7 @@ namespace ViewModels
         }
 
         [ObservableProperty]
-        private ObservableCollection<Film> _films = new();
+        private ObservableCollection<Movie> _movies = new();
 
         [ObservableProperty]
         private bool _isBusy;
@@ -30,14 +29,14 @@ namespace ViewModels
         {
             await ExecuteAsync(async () =>
             {
-                var films = await _context.GetAllAsync<Product>();
-                if (products is not null && products.Any())
+                var movies = await _context.GetAllAsync<Movie>();
+                if (movies is not null && movies.Any())
                 {
-                    Products ??= new ObservableCollection<Product>();
+                    Movies ??= new ObservableCollection<Movie>();
 
-                    foreach (var product in products)
+                    foreach (var product in movies)
                     {
-                        Products.Add(product);
+                        Movies.Add(product);
                     }
                 }
             }, "Fetching products...");

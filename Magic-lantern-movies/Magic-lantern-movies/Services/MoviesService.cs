@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Services
 {
-    class FilmsService
+    class MoviesService
     {
-        private static List<Film> films = new()
+        private static List<Movie> movies = new()
         {
             new()
             {

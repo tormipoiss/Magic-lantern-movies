@@ -20,6 +20,6 @@ namespace Models
         public CommentRatings Rating { get; set; }
         public DateTime Date { get; set; }
         //public Film Film { get; set; }
-        public Guid FilmId { get; set; }
+        public Guid MovieId { get; set; }
     }
 }
