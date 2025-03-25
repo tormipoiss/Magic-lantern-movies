@@ -4,8 +4,6 @@ using Microsoft.UI.Windowing;
 using Windows.Graphics;
 #endif
 
-using Views;
-
 namespace Magic_lantern_movies
 {
     public partial class App : Application
