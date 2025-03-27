@@ -37,6 +37,7 @@ namespace Models
         Good,
         VeryGood
     }
+    [Table("movie")]
     public class Movie
     {
         [PrimaryKey, AutoIncrement]

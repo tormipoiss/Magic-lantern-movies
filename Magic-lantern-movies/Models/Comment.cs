@@ -13,7 +13,7 @@ namespace Models
         Good,
         VeryGood
     }
-
+    [Table("comment")]
     public class Comment
     {
         [PrimaryKey, AutoIncrement]
