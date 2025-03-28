@@ -69,8 +69,8 @@
 	<ItemGroup>
 	  <Folder Include="Models\" />
 	  <Folder Include="Data\" />
-	  <Folder Include="Views\" />
 	  <Folder Include="Services\" />
+	  <Folder Include="Views\CommentsView\" />
 	</ItemGroup>
 
 </Project>
