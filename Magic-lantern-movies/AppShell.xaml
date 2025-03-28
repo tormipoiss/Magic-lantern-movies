@@ -5,11 +5,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:Magic_lantern_movies"
     Shell.FlyoutBehavior="Disabled"
-    Title="Magic_lantern_movies">
+    Title="Magic_lantern_movies"
+    xmlns:pages="clr-namespace:Views">
 
     <ShellContent
         Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+        ContentTemplate="{DataTemplate pages:Home}"
+        Route="Home" />
+    <ShellContent
+        Title="Details"
+        ContentTemplate="{DataTemplate pages:FilmDetails}"
+        Route="MovieDetails" />
 
 </Shell>

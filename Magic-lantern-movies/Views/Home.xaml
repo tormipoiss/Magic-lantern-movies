@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Views.Home"
+             Title="Home"
+             xmlns:vm="clr-namespace:ViewModels"
+             x:DataType="vm:TemporaryHomePageViewModel"
+             xmlns:models="clr-namespace:Models">
+    <VerticalStackLayout>
+        <CollectionView ItemsSource="{Binding Movies}"
+                                HeightRequest="180">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal"
+                                           ItemSpacing="15"/>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Movie">
+                    <Grid>
+                        <Label Text="{Binding Name}"/>
+                        <Grid RowDefinitions="Auto, *, Auto"
+                                          Padding="15">
+                            <Label Grid.Row="1"
+                                               Text="{Binding Name}"/>
+                            <Image Grid.Row="0"
+                                   Source="{Binding Image}"
+                                   Aspect="AspectFit">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:TemporaryHomePageViewModel}},Path=GoToCommand}"
+                                                          CommandParameter="{Binding .}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+                        </Grid>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Views.FilmDetails"
+             Title="FilmDetails"
+             xmlns:models="clr-namespace:Models"
+             xmlns:vm="clr-namespace:ViewModels"
+             x:DataType="vm:MovieDetailsViewModel">
+    <VerticalStackLayout>
+        <Grid>
+            <Image Source="{Binding CurrentMovie.Image}" Aspect="AspectFit" Grid.Row="0" HeightRequest="300" WidthRequest="300"/>
+            <Label Text="{Binding CurrentMovie.Name}" Grid.Row="20"/>
+            <Label Text="{Binding CurrentMovie.Duration}" Grid.Column="2"/>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>
