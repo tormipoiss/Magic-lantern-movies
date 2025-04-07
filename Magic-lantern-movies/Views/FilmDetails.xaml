@@ -6,11 +6,124 @@
              xmlns:models="clr-namespace:Models"
              xmlns:vm="clr-namespace:ViewModels"
              x:DataType="vm:MovieDetailsViewModel">
-    <VerticalStackLayout>
-        <Grid>
-            <Image Source="{Binding CurrentMovie.Image}" Aspect="AspectFit" Grid.Row="0" HeightRequest="300" WidthRequest="300"/>
-            <Label Text="{Binding CurrentMovie.Name}" Grid.Row="20"/>
-            <Label Text="{Binding CurrentMovie.Duration}" Grid.Column="2"/>
+    <VerticalStackLayout BackgroundColor="Black">
+        <Grid Margin="10"
+              RowDefinitions="*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*,*"
+              BackgroundColor="Black">    
+            <Label Text="{Binding CurrentMovie.Name}" 
+                   Grid.Row="0"
+                   HorizontalOptions="Center"
+                   FontSize="30"
+                   TextColor="White"
+                   LineBreakMode="NoWrap"/>
+            <Label Text="{Binding CurrentMovie.PublicationDate,StringFormat='({0:yyyy})'}"
+                   HorizontalOptions="Center"
+                   TextColor="White"
+                   Grid.Row="1"
+                   FontSize="20"/>
+            <Image Source="{Binding CurrentMovie.Image}" 
+                   Aspect="AspectFit" 
+                   Grid.Row="2"
+                   HeightRequest="300" 
+                   WidthRequest="300"
+                   Margin="0,10"/>
+            <Label Text="{Binding CurrentMovie.Duration}"
+                   HorizontalOptions="Center"
+                   TextColor="White"
+                   Grid.Row="3"
+                   FontSize="20"/>
+            <Label Text="{Binding CurrentMovie.AgeRating,StringFormat='Rated {0}'}"
+                   HorizontalOptions="Center"
+                   TextColor="White"
+                   Grid.Row="4"
+                   FontSize="15"
+                   Padding="0,10"/>
+            <CollectionView ItemsSource="{Binding CurrentMovie.Categories}"
+                            Grid.Row="5">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Grid>
+                            <Grid RowDefinitions="Auto, *, Auto">
+                                <Border>
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="10,20,20,10"/>
+                                    </Border.StrokeShape>
+                                    <Label Grid.Row="1"
+                                           Text="{Binding .,StringFormat='{0}'}"
+                                           TextColor="White"
+                                           HorizontalOptions="Center"
+                                           Padding="20,10"
+                                           FontSize="13"/>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <BoxView Grid.Row="6" HeightRequest="1" Color="Grey"
+                     Margin="00,10"/>
+            <Label Text="{Binding CurrentMovie.Description}"
+                   Grid.Row="7"
+                   TextColor="White"
+                   FontSize="15"/>
+            <BoxView Grid.Row="8" HeightRequest="1" Color="Grey"
+                     Margin="00,10"/>
+            <CollectionView ItemsSource="{Binding CurrentMovie.Actors}"
+                Grid.Row="9">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <Grid>
+                            <Grid RowDefinitions="Auto, *, Auto">
+                                <Border>
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="10,20,20,10"/>
+                                    </Border.StrokeShape>
+                                    <Label Grid.Row="1"
+                               Text="{Binding .,StringFormat='{0}'}"
+                               TextColor="White"
+                               HorizontalOptions="Center"
+                               Padding="20,10"
+                               FontSize="13"/>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <BoxView Grid.Row="10" HeightRequest="1" Color="Grey"
+                     Margin="00,10"/>
+            <CollectionView ItemsSource="{Binding CurrentMovie.Comments}"
+                            Grid.Row="8">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Comment">
+                        <Grid>
+                            <Grid RowDefinitions="Auto, *, Auto">
+                                <Border>
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="10,20,20,10"/>
+                                    </Border.StrokeShape>
+                                    <Label Grid.Row="1"
+                   Text="{Binding CommentorName,StringFormat='{0}'}"
+                   TextColor="White"
+                   HorizontalOptions="Center"
+                   Padding="20,10"
+                   FontSize="13"/>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
         </Grid>
     </VerticalStackLayout>
 </ContentPage>
