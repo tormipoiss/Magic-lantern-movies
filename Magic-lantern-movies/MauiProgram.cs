@@ -18,14 +18,12 @@ public static class MauiProgram
         // Define the database path
         var dbPath = Path.Combine(FileSystem.AppDataDirectory, "movies.db3");
 
-        // Register DatabaseContext with the dbPath parameter
         builder.Services.AddSingleton<DatabaseContext>(s => new DatabaseContext(dbPath));
 
-        // Register MoviesService
         builder.Services.AddSingleton<MoviesService>();
 
         var app = builder.Build();
-        Services = app.Services; // Expose the IServiceProvider
+        Services = app.Services;
 
         return app;
     }

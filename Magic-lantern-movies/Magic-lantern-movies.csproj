@@ -64,13 +64,14 @@
 		<PackageReference Include="Microsoft.UI.Xaml" Version="2.8.2" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.11" />
+		<PackageReference Include="System.Data.SQLite" Version="1.0.119" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="Models\" />
 	  <Folder Include="Data\" />
+	  <Folder Include="Views\" />
 	  <Folder Include="Services\" />
-	  <Folder Include="Views\CommentsView\" />
 	</ItemGroup>
 
 </Project>
