@@ -23,7 +23,9 @@
                                                Text="{Binding Name}"/>
                             <Image Grid.Row="0"
                                    Source="{Binding Image}"
-                                   Aspect="AspectFit">
+                                   Aspect="AspectFit"
+                                   HeightRequest="300"
+                                   WidthRequest="300">
                                 <Image.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:TemporaryHomePageViewModel}},Path=GoToCommand}"
                                                           CommandParameter="{Binding .}"/>

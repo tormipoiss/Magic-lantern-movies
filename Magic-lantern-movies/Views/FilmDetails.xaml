@@ -37,7 +37,7 @@
                    TextColor="White"
                    Grid.Row="4"
                    FontSize="15"
-                   Padding="0,10"/>
+                   Padding="0,10,0,30"/>
             <CollectionView ItemsSource="{Binding CurrentMovie.Categories}"
                             Grid.Row="5">
                 <CollectionView.ItemsLayout>
@@ -98,31 +98,15 @@
             </CollectionView>
             <BoxView Grid.Row="10" HeightRequest="1" Color="Grey"
                      Margin="00,10"/>
-            <CollectionView ItemsSource="{Binding CurrentMovie.Comments}"
-                            Grid.Row="8">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="1"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Comment">
-                        <Grid>
-                            <Grid RowDefinitions="Auto, *, Auto">
-                                <Border>
-                                    <Border.StrokeShape>
-                                        <RoundRectangle CornerRadius="10,20,20,10"/>
-                                    </Border.StrokeShape>
-                                    <Label Grid.Row="1"
-                   Text="{Binding CommentorName,StringFormat='{0}'}"
+
+            <Button Grid.Row="11"
+                   Text="View Comments"
                    TextColor="White"
-                   HorizontalOptions="Center"
-                   Padding="20,10"
-                   FontSize="13"/>
-                                </Border>
-                            </Grid>
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                    BackgroundColor="Gray"
+                    HeightRequest="25"
+                    WidthRequest="250">
+
+            </Button>
 
         </Grid>
     </VerticalStackLayout>

@@ -41,7 +41,7 @@ namespace Models
     public class Movie
     {
         [PrimaryKey, AutoIncrement]
-        public Guid ID { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
@@ -50,11 +50,13 @@ namespace Models
             get => Rating.ToString();
             set => Rating = Enum.Parse<Ratings>(value);
         }
+        /*
         public string CategoriesJson
         {
             get => JsonSerializer.Serialize(Categories);
             set => Categories = JsonSerializer.Deserialize<List<Categories>>(value);
         }
+        */
         public string ActorsJson
         {
             get => JsonSerializer.Serialize(Actors);
@@ -64,14 +66,14 @@ namespace Models
         public string OriginalLanguage { get; set; }
         public string Director { get; set; }
         public long DurationTicks { get; set; }
-        public string AgeRatingString
-        {
-            get => AgeRating.ToString();
-            set => AgeRating = Enum.Parse<AgeRatings>(value);
-        }
+        //public string AgeRatingString
+        //{
+        //    get => AgeRating.ToString();
+        //    set => AgeRating = Enum.Parse<AgeRatings>(value);
+        //}
 
         [Ignore]
-        public List<Categories> Categories { get; set; } = new();
+        public List<string> Categories { get; set; } = new();
 
         [Ignore]
         public List<string> Actors { get; set; } = new();
@@ -87,7 +89,7 @@ namespace Models
         public Ratings Rating { get; set; }
 
         [Ignore]
-        public AgeRatings AgeRating { get; set; }
+        public string AgeRating { get; set; }
 
         [Ignore]
         public DateTime PublicationDate
