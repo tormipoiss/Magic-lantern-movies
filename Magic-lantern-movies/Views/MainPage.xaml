@@ -66,7 +66,7 @@
                 <Frame HeightRequest="123"
                        Padding="0"
                        CornerRadius="12"
-                       BackgroundColor="#1f1e1e"
+                       BackgroundColor="#242323"
                        BorderColor="#1f1e1e">
                     <Frame.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewmodels:MainViewModel}},Path=GoToCommand}"
@@ -105,14 +105,14 @@
     <ScrollView>
         <StackLayout BackgroundColor="Black">
             <Grid IsVisible="{Binding IsLoading}">
-                <BoxView Color="White"/>
+                <BoxView Color="Black"/>
                 <StackLayout HorizontalOptions="Center"
                      VerticalOptions="Center">
                     <ActivityIndicator IsRunning="True"
-                       Color="Black"
+                       Color="White"
                        HorizontalOptions="Center"/>
-                    <Label Text="Getting data.."
-           TextColor="Black"
+                    <Label Text="Getting the latest movies.."
+           TextColor="White"
            HorizontalOptions="Center"/>
                 </StackLayout>
             </Grid>
