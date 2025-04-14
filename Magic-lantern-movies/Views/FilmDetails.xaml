@@ -39,7 +39,7 @@
            HeightRequest="300" 
            WidthRequest="300"
            Margin="0,10"/>
-            <Label Text="{Binding CurrentMovie.Duration}"
+            <Label Text="{Binding CurrentMovie.FormattedDuration}"
            HorizontalOptions="Center"
            TextColor="White"
            Grid.Row="4"
