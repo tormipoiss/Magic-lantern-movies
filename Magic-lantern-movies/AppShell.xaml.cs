@@ -1,4 +1,4 @@
-﻿namespace Magic_lantern_movies
+namespace Magic_lantern_movies
 {
     public partial class AppShell : Shell
     {

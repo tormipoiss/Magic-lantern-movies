@@ -19,7 +19,20 @@ namespace Models
         Fantasy,
         Thriller,
         Crime,
-        Tragedy
+        Tragedy,
+        Superhero,
+        Epic,
+        Disaster,
+        Parody,
+        Monster,
+        Alien,
+        Sport,
+        Family,
+        Motorsport,
+        Musical,
+        Mystery,
+        Romance,
+        Western
     }
     public enum AgeRatings
     {
@@ -27,7 +40,8 @@ namespace Models
         PG,
         PG_13,
         R,
-        X
+        X,
+        Not_Rated
     }
     public enum Ratings
     {
@@ -62,7 +76,11 @@ namespace Models
         }
         public long PublicationDateTicks { get; set; }
         public string OriginalLanguage { get; set; }
-        public string Director { get; set; }
+        public string DirectorsJson
+        {
+            get => JsonSerializer.Serialize(Directors);
+            set => Directors = JsonSerializer.Deserialize<List<string>>(value);
+        }
         public long DurationTicks { get; set; }
         public string AgeRatingString
         {
@@ -75,6 +93,9 @@ namespace Models
 
         [Ignore]
         public List<string> Actors { get; set; } = new();
+
+        [Ignore]
+        public List<string> Directors { get; set; } = new();
 
         [Ignore]
         public TimeSpan Duration
@@ -98,5 +119,88 @@ namespace Models
 
         [Ignore]
         public IEnumerable<Comment>? Comments { get; set; }
+
+        [Ignore]
+        public string FormattedPublicationDate
+        {
+            get
+            {
+                var culture = new System.Globalization.CultureInfo("en-US");
+                return PublicationDate.ToString("MMMM yyyy", culture);
+            }
+        }
+
+        [Ignore]
+        public string FormattedDuration
+        {
+            get
+            {
+                if (Duration.Hours > 0)
+                {
+                    return $"{Duration.Hours}h {Duration.Minutes}m";
+                }
+                else
+                {
+                    return $"{Duration.Minutes}m";
+                }
+            }
+        }
+
+        [Ignore]
+        public string FormattedRating
+        {
+            get
+            {
+                switch (Rating)
+                {
+                    case Ratings.VeryNegative:
+                        return "Very Negative";
+                    case Ratings.VeryGood:
+                        return "Very Good";
+                    default:
+                        return Rating.ToString();
+                }
+            }
+        }
+
+        [Ignore]
+        public string FormattedAgeRating
+        {
+            get
+            {
+                switch (AgeRating)
+                {
+                    case AgeRatings.PG_13:
+                        return "PG 13";
+                    case AgeRatings.Not_Rated:
+                        return "Not Rated";
+                    default:
+                        return AgeRating.ToString();
+                }
+            }
+        }
+
+        [Ignore]
+        public Color FormattedRatingColor
+        {
+            get
+            {
+                switch (Rating)
+                {
+                    case Ratings.VeryNegative:
+                        return Colors.Red;
+                    case Ratings.Negative:
+                        return Colors.OrangeRed;
+                    case Ratings.Neutral:
+                        return Colors.Yellow;
+                    case Ratings.Good:
+                        return Colors.Green;
+                    case Ratings.VeryGood:
+                        return Colors.GreenYellow;
+                    default:
+                        return Colors.White;
+                }
+            }
+        }
     }
 }

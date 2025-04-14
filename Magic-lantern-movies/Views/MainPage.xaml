@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Views.MainPage"
+             Title="Home"
+             xmlns:viewmodels="clr-namespace:ViewModels"
+             xmlns:models="clr-namespace:Models"
+             x:DataType="viewmodels:MainViewModel">
+
+    <!--<ContentPage.Resources>
+        <DataTemplate x:Key="MovieTemplate" x:DataType="models:Movie">
+            <Grid Padding="7">
+                <Frame HeightRequest="123"
+                       Padding="0"
+                       CornerRadius="12">
+                    <Grid Padding="0"
+                          ColumnDefinitions="82, *">
+
+                        <Image Aspect="AspectFill"
+                               Source="{Binding Image}"
+                               WidthRequest="82"
+                               HeightRequest="123"/>
+
+                        <VerticalStackLayout Grid.Column="1"
+                                             Padding="10, 0, 0, 0"
+                                             VerticalOptions="Center">
+                            <Label Text="{Binding Name}" 
+                                   Style="{StaticResource LargeLabel}" />
+                            <HorizontalStackLayout Spacing="6"
+                                                   Padding="0, 10, 0, 10">
+                                <Label Text="{Binding FormattedPublicationDate}" />
+                                <Label Text="|" />
+                                <Label Text="{Binding FormattedAgeRating}" />
+                                <Label Text="|" />
+                                <Label Text="{Binding FormattedDuration}" />
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding FormattedRating}" 
+                                   TextColor="{Binding FormattedRatingColor}"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
+            </Grid>
+        </DataTemplate>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout>
+            <Label Text="Best Movies" Style="{StaticResource LargeLabel}" Margin="10, 0, 0, 0"/>
+            <CollectionView ItemsSource="{Binding BestMovies}"
+                        ItemTemplate="{StaticResource MovieTemplate}"/>
+
+            <Label Text="Recent Movies" Style="{StaticResource LargeLabel}" Margin="10, 20, 0, 0"/>
+            <CollectionView ItemsSource="{Binding RecentMovies}"
+                        ItemTemplate="{StaticResource MovieTemplate}"/>
+
+            <Label Text="Other Movies" Style="{StaticResource LargeLabel}" Margin="10, 20, 0, 0"/>
+            <CollectionView ItemsSource="{Binding OtherMovies}"
+                        ItemTemplate="{StaticResource MovieTemplate}"/>
+        </StackLayout>
+    </ScrollView>-->
+
+
+    <ContentPage.Resources>
+        <DataTemplate x:Key="MovieTemplate" x:DataType="models:Movie">
+            <Grid Padding="7">
+                <Frame HeightRequest="123"
+                       Padding="0"
+                       CornerRadius="12">
+                    <Grid Padding="0"
+                          ColumnDefinitions="82, *">
+
+                        <Image Aspect="AspectFill"
+                               Source="{Binding Image}"
+                               WidthRequest="82"
+                               HeightRequest="123"/>
+
+                        <VerticalStackLayout Grid.Column="1"
+                                             Padding="10, 0, 0, 0"
+                                             VerticalOptions="Center">
+                            <Label Text="{Binding Name}" 
+                                   Style="{StaticResource LargeLabel}" />
+                            <HorizontalStackLayout Spacing="6"
+                                                   Padding="0, 10, 0, 10">
+                                <Label Text="{Binding FormattedPublicationDate}" />
+                                <Label Text="|" />
+                                <Label Text="{Binding FormattedAgeRating}" />
+                                <Label Text="|" />
+                                <Label Text="{Binding FormattedDuration}" />
+                            </HorizontalStackLayout>
+                            <Label Text="{Binding FormattedRating}" 
+                                   TextColor="{Binding FormattedRatingColor}"/>
+                        </VerticalStackLayout>
+                    </Grid>
+                </Frame>
+            </Grid>
+        </DataTemplate>
+    </ContentPage.Resources>
+
+    <ScrollView>
+        <StackLayout>
+            <Label Text="Best Movies" Style="{StaticResource LargeLabel}" Margin="10, 0, 0, 0"/>
+            <CollectionView ItemsSource="{Binding BestMovies}"
+                            ItemTemplate="{StaticResource MovieTemplate}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="{Binding ColumnSpan}" />
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+
+            <Label Text="Recent Movies" Style="{StaticResource LargeLabel}" Margin="10, 20, 0, 0"/>
+            <CollectionView ItemsSource="{Binding RecentMovies}"
+                            ItemTemplate="{StaticResource MovieTemplate}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="{Binding ColumnSpan}" />
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+
+            <Label Text="Other Movies" Style="{StaticResource LargeLabel}" Margin="10, 20, 0, 0"/>
+            <CollectionView ItemsSource="{Binding OtherMovies}"
+                            ItemTemplate="{StaticResource MovieTemplate}">
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical" Span="{Binding ColumnSpan}" />
+                </CollectionView.ItemsLayout>
+            </CollectionView>
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
