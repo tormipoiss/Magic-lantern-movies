@@ -45,20 +45,21 @@ namespace Models
     }
     public enum Ratings
     {
-        VeryNegative,
-        Negative,
-        Neutral,
-        Good,
-        VeryGood
+        VeryNegative, // 1
+        Negative, // 2-3
+        Neutral, //3-5
+        Good,//6-7
+        VeryGood//8-10
     }
     [Table("movie")]
     public class Movie
     {
         [PrimaryKey, AutoIncrement]
-        public Guid ID { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
+        public string BackImage { get; set; }
         public string RatingString
         {
             get => Rating.ToString();
@@ -67,32 +68,14 @@ namespace Models
         public string CategoriesJson
         {
             get => JsonSerializer.Serialize(Categories);
-            set => Categories = JsonSerializer.Deserialize<List<Categories>>(value);
-        }
-        public string ActorsJson
-        {
-            get => JsonSerializer.Serialize(Actors);
-            set => Actors = JsonSerializer.Deserialize<List<string>>(value);
+            set => Categories = JsonSerializer.Deserialize<List<String>>(value);
         }
         public long PublicationDateTicks { get; set; }
         public string OriginalLanguage { get; set; }
-        public string DirectorsJson
-        {
-            get => JsonSerializer.Serialize(Directors);
-            set => Directors = JsonSerializer.Deserialize<List<string>>(value);
-        }
         public long DurationTicks { get; set; }
-        public string AgeRatingString
-        {
-            get => AgeRating.ToString();
-            set => AgeRating = Enum.Parse<AgeRatings>(value);
-        }
 
         [Ignore]
-        public List<Categories> Categories { get; set; } = new();
-
-        [Ignore]
-        public List<string> Actors { get; set; } = new();
+        public List<string> Categories { get; set; } = new();
 
         [Ignore]
         public List<string> Directors { get; set; } = new();
@@ -108,7 +91,7 @@ namespace Models
         public Ratings Rating { get; set; }
 
         [Ignore]
-        public AgeRatings AgeRating { get; set; }
+        public string AgeRating { get; set; }
 
         [Ignore]
         public DateTime PublicationDate
@@ -159,23 +142,6 @@ namespace Models
                         return "Very Good";
                     default:
                         return Rating.ToString();
-                }
-            }
-        }
-
-        [Ignore]
-        public string FormattedAgeRating
-        {
-            get
-            {
-                switch (AgeRating)
-                {
-                    case AgeRatings.PG_13:
-                        return "PG 13";
-                    case AgeRatings.Not_Rated:
-                        return "Not Rated";
-                    default:
-                        return AgeRating.ToString();
                 }
             }
         }

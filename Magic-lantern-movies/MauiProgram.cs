@@ -5,6 +5,8 @@ using Services;
 using System.Diagnostics;
 using ViewModels;
 using Serilog;
+using ViewModels;
+using Views;
 
 namespace Magic_lantern_movies;
 
@@ -48,7 +50,7 @@ public static class MauiProgram
             .ConfigureFonts(fonts => fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular"));
 
         // Define the database path
-        var dbPath = Path.Combine(FileSystem.AppDataDirectory, "movies.db5");
+        var dbPath = Path.Combine(".", "movies.db58");
 
         Debug.WriteLine($"dbPath: {dbPath}");
 
@@ -62,7 +64,8 @@ public static class MauiProgram
             builder.Services.AddSingleton<MainViewModel>(s =>
             {
                 var db = s.GetService<DatabaseContext>();
-                return new MainViewModel(db);
+                var mv = s.GetService<MoviesService>();
+                return new MainViewModel(db,mv);
             });
         }
         catch (Exception ex)

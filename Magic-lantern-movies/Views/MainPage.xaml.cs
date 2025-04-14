@@ -17,7 +17,6 @@ public partial class MainPage : ContentPage
             InitializeComponent();
 
             BindingContext = _viewModel;
-            _viewModel.InitializeAsync();
 
             SizeChanged += OnPageSizeChanged; // Attach to the page's SizeChanged event
 
@@ -29,7 +28,11 @@ public partial class MainPage : ContentPage
             Log.Error(ex, "An error occurred");
         }
     }
-
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        await _viewModel.InitializeAsync();
+    }
     private void OnPageSizeChanged(object sender, EventArgs e)
     {
         if (_viewModel != null)

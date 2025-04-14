@@ -17,7 +17,6 @@
                       Icon="search.png"
                       ContentTemplate="{DataTemplate views:SearchPage}"
                       Route="OrdersPage"/>
+        
     </TabBar>
-
-
 </Shell>
