@@ -18,7 +18,7 @@ namespace Magic_lantern_movies
             InitializeComponent();
 
             MainPage = new AppShell();
-
+            /*
             try
             {
                 // Initialize services asynchronously
@@ -32,6 +32,7 @@ namespace Magic_lantern_movies
             {
                 Debug.WriteLine($"Error: {ex.Message}");
             }
+            */
 
 
             Microsoft.Maui.Handlers.WindowHandler.Mapper.AppendToMapping(nameof(IWindow), (handler, view) =>

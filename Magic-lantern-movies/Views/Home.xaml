@@ -7,6 +7,18 @@
              x:DataType="vm:TemporaryHomePageViewModel"
              xmlns:models="clr-namespace:Models">
     <VerticalStackLayout>
+        <Grid IsVisible="{Binding IsLoading}">
+            <BoxView Color="White"/>
+            <VerticalStackLayout HorizontalOptions="Center"
+                             VerticalOptions="Center">
+                <ActivityIndicator IsRunning="True"
+                               Color="Black"
+                               HorizontalOptions="Center"/>
+                <Label Text="Getting data.."
+                   TextColor="White"
+                   HorizontalOptions="Center"/>
+            </VerticalStackLayout>
+        </Grid>
         <CollectionView ItemsSource="{Binding Movies}"
                                 HeightRequest="180">
             <CollectionView.ItemsLayout>

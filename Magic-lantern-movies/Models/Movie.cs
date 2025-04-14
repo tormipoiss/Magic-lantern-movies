@@ -31,11 +31,11 @@ namespace Models
     }
     public enum Ratings
     {
-        VeryNegative,
-        Negative,
-        Neutral,
-        Good,
-        VeryGood
+        VeryNegative, // 1
+        Negative, // 2-3
+        Neutral, //3-5
+        Good,//6-7
+        VeryGood//8-10
     }
     [Table("movie")]
     public class Movie
@@ -45,26 +45,19 @@ namespace Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
+        public string BackImage { get; set; }
         public string RatingString
         {
             get => Rating.ToString();
             set => Rating = Enum.Parse<Ratings>(value);
         }
-        /*
         public string CategoriesJson
         {
             get => JsonSerializer.Serialize(Categories);
-            set => Categories = JsonSerializer.Deserialize<List<Categories>>(value);
-        }
-        */
-        public string ActorsJson
-        {
-            get => JsonSerializer.Serialize(Actors);
-            set => Actors = JsonSerializer.Deserialize<List<string>>(value);
+            set => Categories = JsonSerializer.Deserialize<List<String>>(value);
         }
         public long PublicationDateTicks { get; set; }
         public string OriginalLanguage { get; set; }
-        public string Director { get; set; }
         public long DurationTicks { get; set; }
         //public string AgeRatingString
         //{
@@ -74,9 +67,6 @@ namespace Models
 
         [Ignore]
         public List<string> Categories { get; set; } = new();
-
-        [Ignore]
-        public List<string> Actors { get; set; } = new();
 
         [Ignore]
         public TimeSpan Duration

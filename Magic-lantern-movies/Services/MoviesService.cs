@@ -7,6 +7,8 @@ using System.Text;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 namespace Services
 {
     public class MoviesService
@@ -19,6 +21,40 @@ namespace Services
             _databaseContext = databaseContext;
             _httpClient = new HttpClient();
         }
+        private class MovieObj
+        {
+            public bool Adult { get; set; }
+            public string Backdrop_path { get; set; }
+            public List<int> Genre_ids { get; set; }
+            public int Id { get; set; }
+            public string Original_language { get; set; }
+            public string Original_Title { get; set; }
+            public string Overview { get; set; }
+            public float Popularity { get; set; }
+            public string Poster_path { get; set; }
+            public string Release_date { get; set; }
+            public string Title { get; set; }
+            public bool Video { get; set; }
+            public float Vote_average { get; set; }
+            public int Vote_count { get; set; }
+        }
+        private class PopularMoviesJson
+        {
+            public int Page { get; set; }
+            public List<MovieObj> Results { get; set; }
+        }
+        private async Task<Ratings> ParseRating(float ratingInput)
+        {
+            int rating = (int)ratingInput;
+            if (rating == 1) return Ratings.VeryNegative;
+            if (rating == 2 || rating == 3) return Ratings.Negative;
+            if (rating == 4 || rating == 5) return Ratings.Neutral;
+            if (rating == 6 || rating == 7) return Ratings.Good;
+            if (rating >= 8 && rating <= 10) return Ratings.VeryGood;
+            return Ratings.Neutral;
+
+        }
+
         public async Task InitializeMoviesAsync()
         {
             var existingMovies = await _databaseContext.GetMoviesAsync().ConfigureAwait(false);
@@ -27,97 +63,37 @@ namespace Services
                 Debug.WriteLine($"Movies already exist");
                 return; // Skip if movies already exist
             }
-            var response = await _httpClient.GetAsync("https://www.imdb.com/chart/top/?ref_=tt_awd");
-
-            if (response.IsSuccessStatusCode)
+            var movies = new List<Movie>();
+            const string api_key = "91e0d4296bdfc99f07241e1b39b1f41f";
+            for(int i = 0; i <= 2; i++)
             {
-                // Read the response content as a string
-
-                var content = await response.Content.ReadAsStringAsync();
-                List<string> regexs = new() {
-                    "\"name\":\"(.*?)\",",
-                    "\"description\":\"(.*?)\",",
-                    "\"image\":\"(.*?)\",",
-                    "\"ratingValue\":(.*?),",
-                    "\"contentRating\":\"(.*?)\",",
-                    "\"genre\":\"(.*?)\",",
-                    "\"duration\":\"(.*?)\"",
-
-                };
-                string moviePattern = "\"edges\":\\[(.*)\\]";
-                string yearPatttern = "";
-                string movieMatches = Regex.Match(content, moviePattern).Groups[1].Value;
-                MatchCollection otherMatches = Regex.Matches(movieMatches, "{\"currentRank\":\\d+,\"node\":{(.*?)},\"__typename\":\"ChartTitleEdge\"},");
-                var movies = new List<Movie>();
-                foreach (Match match in otherMatches)
+                var popularMoviesResp = await _httpClient.GetAsync($"https://api.themoviedb.org/3/movie/popular?page={i}&api_key=" + api_key);
+                if (popularMoviesResp.IsSuccessStatusCode)
                 {
-                    Debug.WriteLine(match.Groups[0].Value);
-                    Movie movie = new Movie();
-                    movie.Name = Regex.Match(match.Value, "\"originalTitleText\":{\"text\":\"(.*?)\",").Groups[1].Value;
-                    movie.Description = Regex.Match(match.Value, ".*?\"plotText\":{\"plainText\":\"(.*?)\",.*?}").Groups[1].Value;
-                    movie.Image = Regex.Match(match.Value, "\"primaryImage\":{.*?\"url\":\"(.*?)\",.*?}").Groups[1].Value;
-                    string year = Regex.Match(match.Value, "\"releaseYear\":{\"year\":(.*?),.*?},").Groups[1].Value;
-
-                    movie.PublicationDate = DateTime.ParseExact(year, "yyyy", null);
-
-                    //var rating = double.Parse(Regex.Match(match.Value, "\"ratingsSummary\":{\"aggregateRating\":.*?,}").Groups[1].Value.Replace(".",","));
-                    //movie.Rating = rating > 8.0 ? Ratings.VeryGood : Ratings.Good;
-                    movie.AgeRating = Regex.Match(match.Value, "\"certificate\":{\"rating\":(.*?),}").Groups[1].Value;
-                    movie.Duration = TimeSpan.FromSeconds(int.Parse(Regex.Match(match.Value, "\"runtime\":{\"seconds\":(.*?),.*?},").Groups[1].Value));
-
-                    movie.Categories = Regex.Match(match.Value, "\"genre\":\"(.*?)\",").Groups[1].Value.Split(", ").ToList();
-
-                    movies.Add(movie);
-                }
-                foreach (var movie in movies)
-                {
-                    var result = await _databaseContext.SaveMovieAsync(movie).ConfigureAwait(false);
-                    Debug.WriteLine($"Movie '{movie.Name}' saved with ID: {result}");
-                }
-                /*
-                List<string> regexs = new() {
-                    "\"name\":\"(.*?)\",",
-                    "\"description\":\"(.*?)\",",
-                    "\"image\":\"(.*?)\",",
-                    "\"ratingValue\":(.*?),",
-                    "\"contentRating\":\"(.*?)\",",
-                    "\"genre\":\"(.*?)\",",
-                    "\"duration\":\"(.*?)\"",
-
-                };
-                foreach(string pattern in regexs)
-                {
-                    MatchCollection matches = Regex.Matches(content, pattern);
-                    foreach (Match match in matches)
+                    var content = await popularMoviesResp.Content.ReadAsStringAsync();
+                    PopularMoviesJson data = JsonConvert.DeserializeObject<PopularMoviesJson>(content);
+                    foreach (MovieObj movieObj in data.Results)
                     {
-                        Debug.WriteLine(match.Groups[1].Value);
+                        var movie = new Movie();
+                        var movieDetailsResp = await _httpClient.GetAsync($"https://api.themoviedb.org/3/movie/{movieObj.Id}?api_key=" + api_key);
+                        var detailsContent = await movieDetailsResp.Content.ReadAsStringAsync();
+                        JObject detailsData = JObject.Parse(detailsContent);
+                        movie.Categories = detailsData["genres"].Select(g => g["name"].ToString()).ToList();
+                        movie.Duration = TimeSpan.FromMinutes(detailsData["runtime"].ToObject<int>());
+                        movie.Name = movieObj.Title;
+                        movie.Description = movieObj.Overview;
+                        movie.Image = "https://image.tmdb.org/t/p/w500" + movieObj.Poster_path;
+                        movie.BackImage = "https://image.tmdb.org/t/p/w500" + movieObj.Backdrop_path;
+                        movie.OriginalLanguage = movieObj.Original_language;
+                        movie.Rating = await ParseRating(movieObj.Vote_average);
+                        movie.PublicationDate = DateTime.Parse(movieObj.Release_date.Replace("-", "/"));
+                        var result = await _databaseContext.SaveMovieAsync(movie);
+                        Debug.WriteLine($"Movie '{movie.Name}' saved with ID: {result}");
+                        await Task.Delay(200);
+
                     }
                 }
-                */
-
-                /*
-                 new()
-                    {
-                        Name = "The Shawshank Redemption",
-                        Description = "A banker convicted of uxoricide forms a friendship over a quarter century with a hardened convict, while maintaining his innocence and trying to remain hopeful through simple compassion.",
-                        Rating = Ratings.VeryGood,
-                        Image = "https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg",
-                        Categories = new() { Categories.Drama },
-                        Actors = new() { "Tim Robbins", "Morgan Freeman", "Bob Gunton" },
-                        PublicationDate = new DateTime(1994, 9, 10),
-                        OriginalLanguage = "English",
-                        Director = "Frank Darabont",
-                        Duration = new TimeSpan(2, 22, 0),
-                        AgeRating = AgeRatings.R,
-                    },
-                 */
-                //Debug.WriteLine(content);
             }
-            else
-            {
-                Debug.WriteLine("Error: " + response.StatusCode);
-            }
-
             /*
             try
             {
