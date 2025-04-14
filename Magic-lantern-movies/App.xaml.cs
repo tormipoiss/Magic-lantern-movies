@@ -21,12 +21,11 @@ namespace Magic_lantern_movies
 
             try
             {
-                // Initialize services asynchronously
                 Task.Run(async () =>
                 {
                     var moviesService = MauiProgram.Services.GetRequiredService<MoviesService>();
                     await moviesService.InitializeMoviesAsync();
-                }).Wait(); // Only for demonstration; prefer async startup in real apps
+                }).Wait();
             }
             catch (Exception ex)
             {

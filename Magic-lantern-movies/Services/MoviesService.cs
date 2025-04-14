@@ -23,7 +23,7 @@ namespace Services
                 if (existingMovies.Any()) 
                 {
                     Debug.WriteLine($"Movies already exist");
-                    return; // Skip if movies already exist
+                    return;
                 } 
 
                 var movies = new List<Models.Movie>

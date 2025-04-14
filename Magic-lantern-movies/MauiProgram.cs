@@ -15,7 +15,6 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .ConfigureFonts(fonts => fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular"));
 
-        // Define the database path
         var dbPath = Path.Combine(FileSystem.AppDataDirectory, "movies.db3");
 
         builder.Services.AddSingleton<DatabaseContext>(s => new DatabaseContext(dbPath));
