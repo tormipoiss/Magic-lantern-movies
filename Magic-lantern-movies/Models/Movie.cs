@@ -1,9 +1,8 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Text.Json;
-using Views;
+using True_Comment;
 
 namespace Models
 {
@@ -22,6 +21,7 @@ namespace Models
         Crime,
         Tragedy
     }
+
     public enum AgeRatings
     {
         G,
@@ -30,6 +30,7 @@ namespace Models
         R,
         X
     }
+
     public enum Ratings
     {
         VeryNegative,
@@ -38,6 +39,7 @@ namespace Models
         Good,
         VeryGood
     }
+
     [Table("movie")]
     public class Movie
     {
@@ -46,25 +48,30 @@ namespace Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Image { get; set; }
+
         public string RatingString
         {
             get => Rating.ToString();
             set => Rating = Enum.Parse<Ratings>(value);
         }
+
         public string CategoriesJson
         {
             get => JsonSerializer.Serialize(Categories);
             set => Categories = JsonSerializer.Deserialize<List<Categories>>(value);
         }
+
         public string ActorsJson
         {
             get => JsonSerializer.Serialize(Actors);
             set => Actors = JsonSerializer.Deserialize<List<string>>(value);
         }
+
         public long PublicationDateTicks { get; set; }
         public string OriginalLanguage { get; set; }
         public string Director { get; set; }
         public long DurationTicks { get; set; }
+
         public string AgeRatingString
         {
             get => AgeRating.ToString();
