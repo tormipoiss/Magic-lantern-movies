@@ -86,12 +86,33 @@ namespace ViewModels
         }
         private async Task ChangeLoadingText()
         {
-            int index = 0;
-            List<string> msgs = new() {"Getting the latest movies","This wont take long","Are you having a good day today?"};
+            List<string> msgs = new()
+            {
+                "Getting the latest movies",
+                "This won't take long",
+                "Are you having a good day today?",
+                "Deleting all spoilers..",
+                "Warming up the popcorn 🍿",
+                "Just a few more seconds...",
+                "Grabbing movie magic from the cloud",
+                "Cue the lights... almost ready!",
+                "Making sure the plot has no holes",
+                "Tuning the surround sound 🔊",
+                "Loading cinematic greatness",
+                "Hang tight, the stars are aligning ✨",
+                "Checking for Oscar-worthy content",
+                "Spinning the film reel 🎞️",
+                "Prepping your watchlist",
+                "Putting the final touches on your recommendations",
+                "Checking the critics' scores... (just kidding!)",
+                "Almost there — don't touch that dial!",
+                "Summoning the box office hits",
+                "Loading... with style 🎬"
+            };
+            Random rnd = new();
             while (IsLoading)
             {
-                LoadingText = msgs[index];
-                index = (index + 1) % msgs.Count;
+                LoadingText = msgs[rnd.Next(0,msgs.Count)];
                 await Task.Delay(5000);
             }
         }

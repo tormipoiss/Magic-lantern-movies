@@ -33,9 +33,9 @@ public partial class MainPage : ContentPage
     {
         while (true)
         {
-            await LoadingTextLabel.FadeTo(1, 1000); 
+            await LoadingTextLabel.FadeTo(1, 1250); 
             await Task.Delay(2500);
-            await LoadingTextLabel.FadeTo(0, 1000); 
+            await LoadingTextLabel.FadeTo(0, 1250);
         }
     }
     protected override async void OnAppearing()

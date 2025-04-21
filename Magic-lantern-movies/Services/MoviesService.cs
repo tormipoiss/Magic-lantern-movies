@@ -67,7 +67,7 @@ namespace Services
             {
                 var movies = new List<Movie>();
                 const string api_key = "91e0d4296bdfc99f07241e1b39b1f41f";
-                for (int i = 0; i <= 3; i++)
+                for (int i = 0; i <= 5; i++)
                 {
                     var popularMoviesResp = await _httpClient.GetAsync($"https://api.themoviedb.org/3/movie/popular?page={i}&api_key=" + api_key);
                     if (popularMoviesResp.IsSuccessStatusCode)

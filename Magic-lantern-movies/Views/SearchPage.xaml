@@ -13,7 +13,7 @@
                         StrokeShape="RoundRectangle 10,40,10,40"
                         Stroke="Magenta">
                     <Entry
-                       Placeholder="Search for you favorite movie!"
+                       Placeholder="{Binding CurrentMovies}"
                        Text="{Binding SearchText}"
                        TextColor="White" PlaceholderColor="White"
                        />

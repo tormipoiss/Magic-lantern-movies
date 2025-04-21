@@ -21,6 +21,12 @@ namespace ViewModels
             SearchCommand = new AsyncRelayCommand(OnSearchClicked);
             _databaseContext = databaseContext;
             FoundMovies = new ObservableCollection<Movie>();
+            Task.Run(() => SetSearchPlaceholder());
+        }
+        private async Task SetSearchPlaceholder()
+        {
+            int totalMovies = await _databaseContext.GetTotalMoviesAsync();
+            CurrentMovies = $"Search over {totalMovies} movies!";
         }
         public ObservableCollection<Movie> FoundMovies { get; set; }
 
@@ -37,6 +43,8 @@ namespace ViewModels
             get => _searchText;
             set => SetProperty(ref _searchText, value);
         }
+        [ObservableProperty]
+        private string _currentMovies;
 
         public IAsyncRelayCommand SearchCommand { get; }
 
@@ -49,13 +57,12 @@ namespace ViewModels
             }
 
             var movies = await _databaseContext.SearchMovieAsync(SearchText);
-
+            int totalMovies = await _databaseContext.GetTotalMoviesAsync();
             FoundMovies.Clear();
             foreach (var movie in movies)
             {
                 FoundMovies.Add(movie);
             }
-            AnyMovies = FoundMovies.Any();
         }
 
         [RelayCommand]

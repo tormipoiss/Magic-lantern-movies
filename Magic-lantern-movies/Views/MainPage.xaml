@@ -5,7 +5,8 @@
              Title="Home"
              xmlns:viewmodels="clr-namespace:ViewModels"
              xmlns:models="clr-namespace:Models"
-             x:DataType="viewmodels:MainViewModel">
+             x:DataType="viewmodels:MainViewModel"
+             Shell.TabBarIsVisible="{Binding IsNotLoading}">
 
     <!--<ContentPage.Resources>
         <DataTemplate x:Key="MovieTemplate" x:DataType="models:Movie">
@@ -104,7 +105,9 @@
 
     <ScrollView>
         <StackLayout BackgroundColor="Black">
-            <Grid IsVisible="{Binding IsLoading}">
+            <Grid IsVisible="{Binding IsLoading}"
+                  VerticalOptions="FillAndExpand"
+                  HorizontalOptions="FillAndExpand">
                 <BoxView Color="Black"/>
                 <StackLayout HorizontalOptions="Center"
                      VerticalOptions="Center">
@@ -112,8 +115,9 @@
                        Color="White"
                        HorizontalOptions="Center"/>
                     <Label x:Name="LoadingTextLabel"  Text="{Binding LoadingText}"
-           TextColor="White"
-           HorizontalOptions="Center"/>
+                           TextColor="White"
+                           HorizontalOptions="Center"
+                           FontSize="18"/>
                 </StackLayout>
             </Grid>
             <Label Text="Best Movies" Style="{StaticResource ExtraLargeLabel}" Margin="10, 0, 0, 0" IsVisible="{Binding IsNotLoading}" TextColor="White"/>

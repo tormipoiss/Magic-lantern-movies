@@ -25,6 +25,11 @@ namespace Data
         {
             return _database.Table<Movie>().ToListAsync();
         }
+
+        public Task<int> GetTotalMoviesAsync()
+        {
+            return _database.Table<Movie>().CountAsync();
+        }
         public Task<List<Movie>> SearchMovieAsync(string searchString)
         {
             var query = "SELECT * FROM Movie WHERE Name LIKE ?";
