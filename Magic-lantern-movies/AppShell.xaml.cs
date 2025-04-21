@@ -1,3 +1,5 @@
+using Views;
+
 namespace Magic_lantern_movies
 {
     public partial class AppShell : Shell
@@ -5,6 +7,8 @@ namespace Magic_lantern_movies
         public AppShell()
         {
             InitializeComponent();
+
+            Routing.RegisterRoute(nameof(MoviesByCategoryPage), typeof(MoviesByCategoryPage));
         }
     }
 }

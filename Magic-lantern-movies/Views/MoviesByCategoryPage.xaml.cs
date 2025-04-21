@@ -5,11 +5,11 @@ using ViewModels;
 
 namespace Views;
 
-public partial class CategoriesPage : ContentPage
+public partial class MoviesByCategoryPage : ContentPage
 {
-    CategoriesViewModel _viewModel = ServiceLocator.GetService<CategoriesViewModel>();
+    MoviesByCategoryViewModel _viewModel = ServiceLocator.GetService<MoviesByCategoryViewModel>();
 
-    public CategoriesPage()
+    public MoviesByCategoryPage()
     {
         try
         {
@@ -20,7 +20,7 @@ public partial class CategoriesPage : ContentPage
 
             SizeChanged += OnPageSizeChanged; // Attach to the page's SizeChanged event
 
-            Log.Information("CategoriesPage is loaded.");
+            Log.Information("MoviesByCategoryPage is loaded.");
         }
         catch (Exception ex)
         {

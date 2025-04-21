@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Views.MainPage"
-             Title="Home"
+             x:Class="Views.MoviesByCategoryPage"
+             Title="Movies by category"
              xmlns:viewmodels="clr-namespace:ViewModels"
              xmlns:models="clr-namespace:Models"
-             x:DataType="viewmodels:MainViewModel">
+             x:DataType="viewmodels:MoviesByCategoryViewModel">
 
+    
     <ContentPage.Resources>
         <DataTemplate x:Key="MovieTemplate" x:DataType="models:Movie">
             <Grid Padding="7">
@@ -45,24 +46,8 @@
 
     <ScrollView>
         <StackLayout>
-            <Label Text="Best Movies" Style="{StaticResource LargeLabel}" Margin="10, 0, 0, 0"/>
-            <CollectionView ItemsSource="{Binding BestMovies}"
-                            ItemTemplate="{StaticResource MovieTemplate}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="{Binding ColumnSpan}" />
-                </CollectionView.ItemsLayout>
-            </CollectionView>
-
-            <Label Text="Recent Movies" Style="{StaticResource LargeLabel}" Margin="10, 20, 0, 0"/>
-            <CollectionView ItemsSource="{Binding RecentMovies}"
-                            ItemTemplate="{StaticResource MovieTemplate}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="{Binding ColumnSpan}" />
-                </CollectionView.ItemsLayout>
-            </CollectionView>
-
-            <Label Text="Other Movies" Style="{StaticResource LargeLabel}" Margin="10, 20, 0, 0"/>
-            <CollectionView ItemsSource="{Binding OtherMovies}"
+            <Label Text="{Binding Text}" Style="{StaticResource LargeLabel}" Margin="10, 0, 0, 0"/>
+            <CollectionView ItemsSource="{Binding Movies}"
                             ItemTemplate="{StaticResource MovieTemplate}">
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical" Span="{Binding ColumnSpan}" />
@@ -70,5 +55,6 @@
             </CollectionView>
         </StackLayout>
     </ScrollView>
+
 
 </ContentPage>
