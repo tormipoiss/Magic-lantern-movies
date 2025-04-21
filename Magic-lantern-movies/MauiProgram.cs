@@ -59,6 +59,11 @@ public static class MauiProgram
 
         // Register MoviesService
         builder.Services.AddSingleton<MoviesService>();
+        builder.Services.AddSingleton<SearchViewModel>(s =>
+        {
+            var db = s.GetService<DatabaseContext>();
+            return new SearchViewModel(db);
+        });
         try
         {
             builder.Services.AddSingleton<MainViewModel>(s =>

@@ -2,11 +2,66 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Views.SearchPage"
-             Title="Search">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to Search!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Search"
+             xmlns:models="clr-namespace:Models"
+             xmlns:vm="clr-namespace:ViewModels"
+             x:DataType="vm:SearchViewModel">
+    <ScrollView BackgroundColor="Black">
+        <VerticalStackLayout Margin="10">
+            <Grid RowDefinitions="*,*">
+                <Border Grid.Row="0"
+                        StrokeShape="RoundRectangle 10,40,10,40"
+                        Stroke="Magenta">
+                    <Entry
+                       Placeholder="Search for you favorite movie!"
+                       Text="{Binding SearchText}"
+                       TextColor="White" PlaceholderColor="White"
+                       />
+                </Border>
+                <Button Grid.Row="0" HorizontalOptions="End" Text="Search" Command="{Binding SearchCommand}" ZIndex="10" BackgroundColor="Magenta"/>
+                <CollectionView ItemsSource="{Binding FoundMovies}" Grid.Row="1" Margin="5">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="1"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="models:Movie">
+                            <Grid Padding="7">
+                                <Frame HeightRequest="123"
+                                       Padding="0"
+                                       CornerRadius="12"
+                                       BackgroundColor="#242323"
+                                       BorderColor="#1f1e1e">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:SearchViewModel}},Path=GoToCommand}"
+                                                              CommandParameter="{Binding .}"/>
+                                    </Frame.GestureRecognizers>
+                                    <Grid Padding="0"
+                                          ColumnDefinitions="82, *">
+                                        <Image Aspect="AspectFill"
+                                               Source="{Binding Image}"
+                                               WidthRequest="82"
+                                               HeightRequest="123">
+                                        </Image>
+                                        <VerticalStackLayout Grid.Column="1"
+                                                             Padding="10, 0, 0, 0"
+                                                             VerticalOptions="Center">
+                                            <Label Text="{Binding Name}" 
+                                                   Style="{StaticResource LargeLabel}" TextColor="White"/>
+                                            <HorizontalStackLayout Spacing="6" Padding="0, 10, 0, 10">
+                                                <Label Text="{Binding FormattedPublicationDate}" TextColor="White"/>
+                                                <Label Text="|"  TextColor="White"/>
+                                                <Label Text="{Binding FormattedDuration}" TextColor="White"/>
+                                            </HorizontalStackLayout>
+                                            <Label Text="{Binding FormattedRating}" 
+                                                   TextColor="{Binding FormattedRatingColor}"/>
+                                        </VerticalStackLayout>
+                                    </Grid>
+                                </Frame>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

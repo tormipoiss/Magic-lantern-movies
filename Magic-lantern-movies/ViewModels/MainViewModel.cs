@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Reflection;
 using System.Text;
 using Views;
 
@@ -55,6 +56,22 @@ namespace ViewModels
                 }
             }
         }
+
+        public string _loadingText = "";
+
+
+        public string LoadingText
+        {
+            get => _loadingText;
+            set
+            {
+                if (_loadingText != value)
+                {
+                    _loadingText = value;
+                    OnPropertyChanged(nameof(LoadingText));  // Notify the UI of the change
+                }
+            }
+        }
         public bool IsNotLoading
         {
             get => _isNotLoading;
@@ -67,10 +84,22 @@ namespace ViewModels
                 }
             }
         }
+        private async Task ChangeLoadingText()
+        {
+            int index = 0;
+            List<string> msgs = new() {"Getting the latest movies","This wont take long","Are you having a good day today?"};
+            while (IsLoading)
+            {
+                LoadingText = msgs[index];
+                index = (index + 1) % msgs.Count;
+                await Task.Delay(5000);
+            }
+        }
         public async Task InitializeAsync()
         {
             if (_init)
             {
+                Task.Run(async () => await ChangeLoadingText());
                 await _moviesService.InitializeMoviesAsync();
                 await LoadMoviesAsync();
                 _init = false;

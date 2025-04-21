@@ -25,6 +25,13 @@ namespace Data
         {
             return _database.Table<Movie>().ToListAsync();
         }
+        public Task<List<Movie>> SearchMovieAsync(string searchString)
+        {
+            var query = "SELECT * FROM Movie WHERE Name LIKE ?";
+            var movies = _database.QueryAsync<Movie>(query, "%" + searchString + "%");
+
+            return movies;
+        }
         // get by name method maybe
         //public Task<List<Movie>> GetMoviesByNameAsync(string name)
         //{

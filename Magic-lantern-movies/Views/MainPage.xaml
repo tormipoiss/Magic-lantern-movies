@@ -111,7 +111,7 @@
                     <ActivityIndicator IsRunning="True"
                        Color="White"
                        HorizontalOptions="Center"/>
-                    <Label Text="Getting the latest movies.."
+                    <Label x:Name="LoadingTextLabel"  Text="{Binding LoadingText}"
            TextColor="White"
            HorizontalOptions="Center"/>
                 </StackLayout>

@@ -27,6 +27,16 @@ public partial class MainPage : ContentPage
             Debug.WriteLine($"Error: {ex.Message}");
             Log.Error(ex, "An error occurred");
         }
+        Task.Run(async () => AnimateLabel());
+    }
+    private async void AnimateLabel()
+    {
+        while (true)
+        {
+            await LoadingTextLabel.FadeTo(1, 1000); 
+            await Task.Delay(2500);
+            await LoadingTextLabel.FadeTo(0, 1000); 
+        }
     }
     protected override async void OnAppearing()
     {
