@@ -2,11 +2,41 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Views.CategoriesPage"
-             Title="Categories">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to Categories!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Categories"
+             xmlns:viewmodels="clr-namespace:ViewModels"
+             x:DataType="viewmodels:CategoriesViewModel">
+
+    <ContentPage.Resources>
+        <DataTemplate x:Key="CategoryTemplate" x:DataType="x:String">
+            <Grid Padding="7">
+                
+                <Grid.GestureRecognizers>
+                    <TapGestureRecognizer 
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CategoriesViewModel}}, Path=GoToCommand}" 
+                    CommandParameter="{Binding .}" />
+                </Grid.GestureRecognizers>
+                
+                <Frame HeightRequest="50"
+                       Padding="0"
+                       CornerRadius="12">
+                    <Grid Padding="0">
+                        <Label Text="{Binding .}" 
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center"
+                               Style="{StaticResource LargeLabel}" />
+                    </Grid>
+                </Frame>
+                
+            </Grid>
+        </DataTemplate>
+    </ContentPage.Resources>
+
+    <CollectionView ItemsSource="{Binding Categories}"
+                    ItemTemplate="{StaticResource CategoryTemplate}">
+        <CollectionView.ItemsLayout>
+            <GridItemsLayout Orientation="Vertical" Span="{Binding ColumnSpan}" />
+        </CollectionView.ItemsLayout>
+    </CollectionView>
+
+
 </ContentPage>

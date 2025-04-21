@@ -1,4 +1,3 @@
-using Data;
 using Serilog;
 using Services;
 using System.Diagnostics;
@@ -6,43 +5,30 @@ using ViewModels;
 
 namespace Views;
 
-public partial class MainPage : ContentPage
+public partial class MoviesByCategoryPage : ContentPage
 {
-    MainViewModel _viewModel = ServiceLocator.GetService<MainViewModel>();
+    MoviesByCategoryViewModel _viewModel = ServiceLocator.GetService<MoviesByCategoryViewModel>();
 
-    public MainPage()
+    public MoviesByCategoryPage()
     {
         try
         {
             InitializeComponent();
 
             BindingContext = _viewModel;
+            _viewModel.InitializeAsync();
 
             SizeChanged += OnPageSizeChanged; // Attach to the page's SizeChanged event
 
-            Log.Information("MainPage is loaded.");
+            Log.Information("MoviesByCategoryPage is loaded.");
         }
         catch (Exception ex)
         {
             Debug.WriteLine($"Error: {ex.Message}");
             Log.Error(ex, "An error occurred");
         }
-        Task.Run(async () => AnimateLabel());
     }
-    private async void AnimateLabel()
-    {
-        while (true)
-        {
-            await LoadingTextLabel.FadeTo(1, 1250); 
-            await Task.Delay(2500);
-            await LoadingTextLabel.FadeTo(0, 1250);
-        }
-    }
-    protected override async void OnAppearing()
-    {
-        base.OnAppearing();
-        await _viewModel.InitializeAsync();
-    }
+
     private void OnPageSizeChanged(object sender, EventArgs e)
     {
         if (_viewModel != null)
@@ -52,6 +38,7 @@ public partial class MainPage : ContentPage
             _viewModel.UpdateSpan(width);
         }
     }
+
     private async void OnRankingLabelTapped(object sender, EventArgs e)
     {
         string[] sortOptions = { "Ranking", "Release date", "Alphabetical", "Runtime" };
@@ -93,17 +80,5 @@ public partial class MainPage : ContentPage
 
             await _viewModel.LoadMoviesAsync($"{SortingLabel.Text} bottom");
         }
-    }
-
-    private void OnEnableSortingClicked(object sender, EventArgs e)
-    {
-        SortingStack.IsVisible = true;
-        DefaultStack.IsVisible = false;
-    }
-
-    private void OnDisableSortingClicked(object sender, EventArgs e)
-    {
-        SortingStack.IsVisible = false;
-        DefaultStack.IsVisible = true;
     }
 }

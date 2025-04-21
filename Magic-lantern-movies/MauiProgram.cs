@@ -79,6 +79,34 @@ public static class MauiProgram
             Log.Error(ex, "An error occurred");
         }
 
+        try
+        {
+            builder.Services.AddSingleton<CategoriesViewModel>(s =>
+            {
+                var db = s.GetService<DatabaseContext>();
+                return new CategoriesViewModel(db);
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error: {ex.Message}");
+            Log.Error(ex, "An error occurred");
+        }
+
+        try
+        {
+            builder.Services.AddTransient<MoviesByCategoryViewModel>(s =>
+            {
+                var db = s.GetService<DatabaseContext>();
+                return new MoviesByCategoryViewModel(db);
+            });
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error: {ex.Message}");
+            Log.Error(ex, "An error occurred");
+        }
+
         var app = builder.Build();
         ServiceLocator.ServiceProvider = app.Services;
         /*Services = app.Services;*/ // Expose the IServiceProvider

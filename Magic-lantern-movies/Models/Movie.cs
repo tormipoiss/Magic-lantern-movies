@@ -168,5 +168,28 @@ namespace Models
                 }
             }
         }
+
+        [Ignore]
+        public int NumberedRating
+        {
+            get
+            {
+                switch (Rating)
+                {
+                    case Ratings.VeryNegative:
+                        return 5;
+                    case Ratings.Negative:
+                        return 4;
+                    case Ratings.Neutral:
+                        return 3;
+                    case Ratings.Good:
+                        return 2;
+                    case Ratings.VeryGood:
+                        return 1;
+                    default:
+                        return 0;
+                }
+            }
+        }
     }
 }
