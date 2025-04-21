@@ -43,7 +43,15 @@ namespace ViewModels
 
         private async Task LoadCategoriesAsync()
         {
-            List<string> categoryNames = Enum.GetNames(typeof(Categories)).OrderBy(c => c).ToList();
+            var movies = await _db.GetMoviesAsync();
+            List<string> categoryNames = new();
+            foreach (var movie in movies)
+            {
+                foreach (var category in movie.Categories)
+                {
+                    if(!categoryNames.Contains(category)) categoryNames.Add(category);
+                }
+            }
 
             foreach (var category in categoryNames)
             {

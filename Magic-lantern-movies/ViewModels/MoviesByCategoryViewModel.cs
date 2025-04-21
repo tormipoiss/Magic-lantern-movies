@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Data;
 using Models;
 using Serilog;
@@ -8,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using Views;
 
 namespace ViewModels
 {
@@ -76,19 +78,11 @@ namespace ViewModels
                 }
                 else
                 {
-                    if (Enum.TryParse<Categories>(Category, out var categoryEnum))
-                    {
-                        categoryMovies = allMovies.Where(m => m.Categories.Contains(categoryEnum)).ToList();
+                    categoryMovies = allMovies.Where(m => m.Categories.Contains(Category)).ToList();
 
-                        if (categoryMovies == null || categoryMovies.Count == 0)
-                        {
-                            Text = $"No movies in the category '{Category}' were found!";
-                            return;
-                        }
-                    }
-                    else
+                    if (categoryMovies == null || categoryMovies.Count == 0)
                     {
-                        Text = $"Category could not be parsed to enum: '{Category}'";
+                        Text = $"No movies in the category '{Category}' were found!";
                         return;
                     }
                 }
@@ -207,6 +201,15 @@ namespace ViewModels
             {
                 Movies.Add(movie);
             }
+        }
+        [RelayCommand]
+        private async Task GoTo(Movie movie)
+        {
+            var param = new Dictionary<string, object>()
+            {
+                [nameof(MovieDetailsViewModel.CurrentMovie)] = movie
+            };
+            await Shell.Current.GoToAsync(nameof(FilmDetails), animate: true, param);
         }
     }
 }

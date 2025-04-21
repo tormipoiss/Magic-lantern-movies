@@ -51,48 +51,10 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <StackLayout BackgroundColor="Black">
-            <Grid IsVisible="{Binding IsLoading}"
-                  VerticalOptions="FillAndExpand"
-                  HorizontalOptions="FillAndExpand">
-                <BoxView Color="Black"/>
-                <StackLayout HorizontalOptions="Center"
-                     VerticalOptions="Center">
-                    <ActivityIndicator IsRunning="True"
-                       Color="White"
-                       HorizontalOptions="Center"/>
-                    <Label x:Name="LoadingTextLabel"  Text="{Binding LoadingText}"
-                           TextColor="White"
-                           HorizontalOptions="Center"
-                           FontSize="18"/>
-                </StackLayout>
-            </Grid>
-            <Label Text="Best Movies" Style="{StaticResource ExtraLargeLabel}" Margin="10, 0, 0, 0" IsVisible="{Binding IsNotLoading}" TextColor="White"/>
-            <CollectionView ItemsSource="{Binding BestMovies}"
-                            ItemTemplate="{StaticResource MovieTemplate}" IsVisible="{Binding IsNotLoading}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="{Binding ColumnSpan}" />
-                </CollectionView.ItemsLayout>
-            </CollectionView>
-
-            <Label Text="Recent Movies" Style="{StaticResource ExtraLargeLabel}" Margin="10, 20, 0, 0" IsVisible="{Binding IsNotLoading}" TextColor="White"/>
-            <CollectionView ItemsSource="{Binding RecentMovies}"
-                            ItemTemplate="{StaticResource MovieTemplate}" IsVisible="{Binding IsNotLoading}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="{Binding ColumnSpan}" />
-                </CollectionView.ItemsLayout>
-            </CollectionView>
-
-            <Label Text="Other Movies" Style="{StaticResource ExtraLargeLabel}" Margin="10, 20, 0, 0" IsVisible="{Binding IsNotLoading}" TextColor="White"/>
-            <CollectionView ItemsSource="{Binding OtherMovies}"
-                            ItemTemplate="{StaticResource MovieTemplate}" IsVisible="{Binding IsNotLoading}">
-                <CollectionView.ItemsLayout>
-                    <GridItemsLayout Orientation="Vertical" Span="{Binding ColumnSpan}" />
-                </CollectionView.ItemsLayout>
-            </CollectionView>
         <StackLayout>
             <StackLayout x:Name="SortingStack" 
-                         IsVisible="False">
+                         IsVisible="False"
+                         BackgroundColor="Black">
 
                 <Button Text="Disable Sorting" Clicked="OnDisableSortingClicked" />
 
@@ -167,29 +129,44 @@
 
 
             <StackLayout x:Name="DefaultStack"
-                         IsVisible="True">
+                         IsVisible="True"
+                         BackgroundColor="Black">
+                <Grid IsVisible="{Binding IsLoading}"
+      VerticalOptions="FillAndExpand"
+      HorizontalOptions="FillAndExpand">
+                    <BoxView Color="Black"/>
+                    <StackLayout HorizontalOptions="Center"
+         VerticalOptions="Center">
+                        <ActivityIndicator IsRunning="True"
+           Color="White"
+           HorizontalOptions="Center"/>
+                        <Label x:Name="LoadingTextLabel"  Text="{Binding LoadingText}"
+               TextColor="White"
+               HorizontalOptions="Center"
+               FontSize="18"/>
+                    </StackLayout>
+                </Grid>
+                <Button Text="Enable Sorting" Clicked="OnEnableSortingClicked" IsVisible="{Binding IsNotLoading}"/>
 
-                <Button Text="Enable Sorting" Clicked="OnEnableSortingClicked"/>
-
-                <Label Text="Best Movies" Style="{StaticResource LargeLabel}" Margin="10, 7, 0, 0"/>
+                <Label Text="Best Movies" Style="{StaticResource ExtraLargeLabel}" Margin="10, 0, 0, 0" IsVisible="{Binding IsNotLoading}" TextColor="White"/>
                 <CollectionView ItemsSource="{Binding BestMovies}"
-                            ItemTemplate="{StaticResource MovieTemplate}">
+                ItemTemplate="{StaticResource MovieTemplate}" IsVisible="{Binding IsNotLoading}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" Span="{Binding ColumnSpan}" />
                     </CollectionView.ItemsLayout>
                 </CollectionView>
 
-                <Label Text="Recent Movies" Style="{StaticResource LargeLabel}" Margin="10, 20, 0, 0"/>
+                <Label Text="Recent Movies" Style="{StaticResource ExtraLargeLabel}" Margin="10, 20, 0, 0" IsVisible="{Binding IsNotLoading}" TextColor="White"/>
                 <CollectionView ItemsSource="{Binding RecentMovies}"
-                            ItemTemplate="{StaticResource MovieTemplate}">
+                ItemTemplate="{StaticResource MovieTemplate}" IsVisible="{Binding IsNotLoading}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" Span="{Binding ColumnSpan}" />
                     </CollectionView.ItemsLayout>
                 </CollectionView>
 
-                <Label Text="Other Movies" Style="{StaticResource LargeLabel}" Margin="10, 20, 0, 0"/>
+                <Label Text="Other Movies" Style="{StaticResource ExtraLargeLabel}" Margin="10, 20, 0, 0" IsVisible="{Binding IsNotLoading}" TextColor="White"/>
                 <CollectionView ItemsSource="{Binding OtherMovies}"
-                            ItemTemplate="{StaticResource MovieTemplate}">
+                ItemTemplate="{StaticResource MovieTemplate}" IsVisible="{Binding IsNotLoading}">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical" Span="{Binding ColumnSpan}" />
                     </CollectionView.ItemsLayout>

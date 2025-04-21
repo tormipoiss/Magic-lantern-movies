@@ -30,10 +30,9 @@ namespace ViewModels
         [ObservableProperty]
         private int columnSpan = 1; // Default to 1 column
 
-        public MainViewModel(DatabaseContext db, MoviesService moviesService)
         private List<Movie> allMovies;
 
-        public MainViewModel(DatabaseContext db)
+        public MainViewModel(DatabaseContext db, MoviesService moviesService)
         {
             try
             {
@@ -127,12 +126,11 @@ namespace ViewModels
             {
                 Task.Run(async () => await ChangeLoadingText());
                 await _moviesService.InitializeMoviesAsync();
-                await LoadMoviesAsync();
+                await LoadMoviesAsync("Default movies");
                 _init = false;
             }
             IsLoading = false;
             IsNotLoading = true;
-            await LoadMoviesAsync("Default movies");
             Debug.WriteLine("MainViewModel initialize method activated");
             Log.Information("MainViewModel initialize method activated");
         }

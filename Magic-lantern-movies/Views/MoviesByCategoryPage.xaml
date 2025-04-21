@@ -12,31 +12,37 @@
         <DataTemplate x:Key="MovieTemplate" x:DataType="models:Movie">
             <Grid Padding="7">
                 <Frame HeightRequest="123"
-                       Padding="0"
-                       CornerRadius="12">
+               Padding="0"
+               CornerRadius="12"
+               BackgroundColor="#242323"
+               BorderColor="#1f1e1e">
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={x:RelativeSource AncestorType={x:Type viewmodels:MoviesByCategoryViewModel}},Path=GoToCommand}"
+              CommandParameter="{Binding .}"/>
+                    </Frame.GestureRecognizers>
                     <Grid Padding="0"
-                          ColumnDefinitions="82, *">
+                  ColumnDefinitions="82, *">
+
 
                         <Image Aspect="AspectFill"
-                               Source="{Binding Image}"
-                               WidthRequest="82"
-                               HeightRequest="123"/>
+                       Source="{Binding Image}"
+                       WidthRequest="82"
+                       HeightRequest="123">
+                        </Image>
 
                         <VerticalStackLayout Grid.Column="1"
-                                             Padding="10, 0, 0, 0"
-                                             VerticalOptions="Center">
+                                     Padding="10, 0, 0, 0"
+                                     VerticalOptions="Center">
                             <Label Text="{Binding Name}" 
-                                   Style="{StaticResource LargeLabel}" />
+                           Style="{StaticResource LargeLabel}" TextColor="White"/>
                             <HorizontalStackLayout Spacing="6"
-                                                   Padding="0, 10, 0, 10">
-                                <Label Text="{Binding FormattedPublicationDate}" />
-                                <Label Text="|" />
-                                <Label Text="{Binding FormattedAgeRating}" />
-                                <Label Text="|" />
-                                <Label Text="{Binding FormattedDuration}" />
+                                           Padding="0, 10, 0, 10">
+                                <Label Text="{Binding FormattedPublicationDate}" TextColor="White"/>
+                                <Label Text="|"  TextColor="White"/>
+                                <Label Text="{Binding FormattedDuration}" TextColor="White"/>
                             </HorizontalStackLayout>
                             <Label Text="{Binding FormattedRating}" 
-                                   TextColor="{Binding FormattedRatingColor}"/>
+                           TextColor="{Binding FormattedRatingColor}"/>
                         </VerticalStackLayout>
                     </Grid>
                 </Frame>
@@ -45,8 +51,8 @@
     </ContentPage.Resources>
 
     <ScrollView>
-        <StackLayout>
-            <Label Text="{Binding Text}" Style="{StaticResource LargeLabel}" Margin="10, 0, 0, 0"/>
+        <StackLayout BackgroundColor="Black">
+            <Label Text="{Binding Text}" Style="{StaticResource LargeLabel}" Margin="10, 0, 0, 0" TextColor="White"/>
 
             <Grid Margin="10, 5, 0, 0"
                   ColumnDefinitions="Auto,Auto,Auto">
@@ -54,7 +60,7 @@
                 <Label Text="Sort by: "
                        Style="{StaticResource LargeLabel}"
                        Grid.Column="0" 
-                       Margin="0, 2, 0, 0"/>
+                       Margin="0, 2, 0, 0" TextColor="White"/>
 
                 <Frame HeightRequest="30"
                        Padding="5"

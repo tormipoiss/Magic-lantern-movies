@@ -5,7 +5,6 @@ using Services;
 using System.Diagnostics;
 using ViewModels;
 using Serilog;
-using ViewModels;
 using Views;
 
 namespace Magic_lantern_movies;
