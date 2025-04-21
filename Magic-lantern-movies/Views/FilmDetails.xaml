@@ -59,7 +59,7 @@
                     <DataTemplate x:DataType="x:String">
                         <Grid>
                             <Grid RowDefinitions="Auto, *, Auto">
-                                <Border>
+                                <Border Stroke="Magenta">
                                     <Border.StrokeShape>
                                         <RoundRectangle CornerRadius="10,20,20,10"/>
                                     </Border.StrokeShape>
@@ -83,7 +83,7 @@
            FontSize="15"
            Margin="5"/>
                 <BoxView Grid.Row="10" HeightRequest="1" Color="Grey"
-             Margin="00,10"/>
+             Margin="00,10" />
 
             <Button Grid.Row="11"
            Text="View Comments"
