@@ -38,4 +38,47 @@ public partial class MoviesByCategoryPage : ContentPage
             _viewModel.UpdateSpan(width);
         }
     }
+
+    private async void OnRankingLabelTapped(object sender, EventArgs e)
+    {
+        string[] sortOptions = { "Ranking", "Release date", "Alphabetical", "Runtime" };
+        string selected = await DisplayActionSheet(
+            "Sort by", // Title
+            "Cancel",   // Cancel button text
+            null,       // Destructive button text (optional)
+            sortOptions // The options
+        );
+
+        if (selected != null && selected != "Cancel")
+        {
+            SortingLabel.Text = selected;
+
+            var fileSource = SortingOrderImage.Source as FileImageSource;
+            if (fileSource.File == "arrow_down.png")
+            {
+                await _viewModel.LoadMoviesAsync($"{selected} bottom");
+            }
+            else
+            {
+                await _viewModel.LoadMoviesAsync($"{selected} top");
+            }
+        }
+    }
+
+    private async void OnSortingOrderTapped(object sender, EventArgs e)
+    {
+        var fileSource = SortingOrderImage.Source as FileImageSource;
+        if (fileSource.File == "arrow_down.png")
+        {
+            SortingOrderImage.Source = "arrow_up.png";
+
+            await _viewModel.LoadMoviesAsync($"{SortingLabel.Text} top");
+        }
+        else
+        {
+            SortingOrderImage.Source = "arrow_down.png";
+
+            await _viewModel.LoadMoviesAsync($"{SortingLabel.Text} bottom");
+        }
+    }
 }
