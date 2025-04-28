@@ -1,11 +1,8 @@
-﻿using Data;
+﻿using System.Diagnostics;
+using Data;
 using Models;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using True_Comment;
+using SQLite;
 
 namespace Services
 {
@@ -45,7 +42,6 @@ namespace Services
                         Duration = new TimeSpan(2, 22, 0),
                         AgeRating = AgeRatings.R,
                     },
-
                     new()
                     {
                         Name = "The Godfather",
@@ -67,7 +63,7 @@ namespace Services
                     var result = await _databaseContext.SaveMovieAsync(movie).ConfigureAwait(false);
                     Debug.WriteLine($"Movie '{movie.Name}' saved with ID: {result}");
 
-                    await AddSampleCommentsForMovieAsync(movie.Name);
+                    await AddSampleCommentsForMovieAsync(movie);
                 }
 
                 await DisplayMoviesWithCommentsAsync();
@@ -79,25 +75,15 @@ namespace Services
             }
         }
 
-        private async Task AddSampleCommentsForMovieAsync(string movieName)
+        private async Task AddSampleCommentsForMovieAsync(Models.Movie movie)
         {
-            var comment1 = new Comment("Alice", "Amazing movie, loved the depth of the characters!");
-            var comment2 = new Comment("Bob", "Great story, but the pacing was a bit slow.");
+            var comment1 = new Comment(movie.ID, "Alice", "Amazing movie, loved the depth of the characters!");
+            var comment2 = new Comment(movie.ID, "Bob", "Great story, but the pacing was a bit slow.");
 
-            var result1 = await _databaseContext.SaveMovieAsync(new Movie
-            {
-                Name = movieName, 
-                Description = comment1.Text,
-            });
+            await _databaseContext.SaveCommentAsync(comment1);
+            await _databaseContext.SaveCommentAsync(comment2);
 
-            Debug.WriteLine($"Added comment 1 for '{movieName}'");
-
-            var result2 = await _databaseContext.SaveMovieAsync(new Movie
-            {
-                Name = movieName, 
-                Description = comment2.Text,
-            });
-            Debug.WriteLine($"Added comment 2 for '{movieName}'");
+            Debug.WriteLine($"Added comments for '{movie.Name}'");
         }
 
         private async Task DisplayMoviesWithCommentsAsync()
@@ -117,8 +103,8 @@ namespace Services
                     Console.WriteLine($"Age Rating: {movie.AgeRating}");
 
                     Console.WriteLine("Comments:");
-                    var comments = movie.Comments;
-                    if (comments != null && comments.Any())
+                    var comments = await _databaseContext.GetCommentsForMovieAsync(movie.ID);
+                    if (comments.Any())
                     {
                         foreach (var comment in comments)
                         {

@@ -21,9 +21,19 @@ namespace Data
             return _database.InsertAsync(movie);
         }
 
+        public Task<int> SaveCommentAsync(Comment comment)
+        {
+            return _database.InsertAsync(comment);
+        }
+
         public Task<List<Movie>> GetMoviesAsync()
         {
             return _database.Table<Movie>().ToListAsync();
+        }
+
+        public Task<List<Comment>> GetCommentsForMovieAsync(Guid movieId)
+        {
+            return _database.Table<Comment>().Where(c => c.MovieId == movieId).ToListAsync();
         }
     }
 }
