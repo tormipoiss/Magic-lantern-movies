@@ -1,2 +1,18 @@
 
 (This is a textfile to explain what the Tests written in XUnit do, in case someone wants to rewrite them or check them over for any errors)
+
+
+Test Nr 1
+See test tagab et kui on määratud kehtiv RatingString nagu näiteks hea või midagi muud, siis 
+värskendatakse Rating omadust vastavaks CommentRatings enumerable väärtuseks.
+
+Test Nr 2
+Kontrollib, kas sobimatu RatingString InvalidRating määramine põhjustab ArgumentException.
+
+Test Nr 3
+Tagab, et kui kuupäeva atribuut on määratud, siis värskendatakse ka kuupäevavahemiku ehk DateTicks  atribuuti õigesti
+sama vastupidi et kui kuupäevavahemik on määratud siis tagab et kuu värskendatakse õigesti.
+(!Ma aravan, ei ole täitsa kindel selle testi kohta!)
+
+Test Nr 4
+See test vaatab, kas kommentaariobjekti saab initsialiseerida selle vastavate omaduste kehtivate väärtustega.

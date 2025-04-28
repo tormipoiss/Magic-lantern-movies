@@ -53,7 +53,26 @@ namespace MoveXUnitTests
             Assert.Equal(expectedDate.Ticks, comment.DateTicks);
             Assert.Equal(expectedDate, comment.Date);
 
-            sdfs
+            
+        }
+
+        public void Constructor_ShouldIntializeProperties()
+        {
+            // Arrange and ACT as well
+            var comment = new Comment
+            {
+                CommentorName = "Mark Hamil",
+                CommentText = "Good movie!",
+                Rating = CommentRatings.Good,
+                Date = DateTime.Now,
+                MovieID = Guid.NewGuid()
+            };
+
+            // Assert
+
+            Assert.NotNull(comment.CommentorName);
+            Assert.NotNull(comment.CommentText);
+            Assert.NotEqual(Guid.Empty, comment.MovieID);
         }
 
     }
