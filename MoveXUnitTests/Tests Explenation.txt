@@ -27,15 +27,5 @@ Test Nr 2
 Kontrollib kas kategooriat saab eemaldad a listist
 
 
-Test Nr 3
-Kontrollib, kas kategooriate loend on listis õigesti määratud
-
 Test Nr 4
 Kontrollib kas kategooria list on õigesti tühjendatud
-
-
-
-
-
-
-[[FilmDetails Tests]]
