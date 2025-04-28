@@ -55,32 +55,40 @@
             <StackLayout x:Name="SortingStack" 
                          IsVisible="False"
                          BackgroundColor="Black">
-
-                <Button Text="Disable Sorting" Clicked="OnDisableSortingClicked" />
-
                 <Grid Margin="10, 5, 0, 0"
-                  ColumnDefinitions="Auto,Auto,Auto">
+                  ColumnDefinitions="Auto,Auto,Auto,*">
 
                     <Label Text="Sort by: "
                        Style="{StaticResource LargeLabel}"
                        Grid.Column="0" 
-                       Margin="0, 2, 0, 0"/>
+                       Margin="0, 2, 0, 0"
+                       TextColor="White"/>
+                    
+                    <Button Grid.Column="3" Text="Disable Sort"
+                            Clicked="OnDisableSortingClicked"
+                            WidthRequest="110" 
+                            HorizontalOptions="End"
+                            HeightRequest="35"
+                            Margin="0,0,10,0" 
+                            BackgroundColor="DarkMagenta" />
+
 
                     <Frame HeightRequest="30"
                        Padding="5"
                        CornerRadius="12"
                        Grid.Column="1"
-                       Margin="10, 0, 14, 0" >
+                       Margin="10, 0, 14, 0" 
+                       BackgroundColor="Black"
+                       BorderColor="Magenta">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnRankingLabelTapped" />
                         </Frame.GestureRecognizers>
 
-                        <Grid ColumnDefinitions="Auto,Auto">
-
+                        <Grid ColumnDefinitions="Auto,Auto,Auto">
                             <Label Text="Ranking"
                                x:Name="SortingLabel"
                                Style="{StaticResource LargeLabel}"
-                               TextColor="#0e75c4"
+                               TextColor="White"
                                Grid.Column="0"
                                Margin="0, 0, 6, 0"
                                Padding="0, 0, 0, 6"
@@ -97,7 +105,6 @@
                                VerticalOptions="Center" 
                                HorizontalOptions="Center"
                                Margin="0, 0, 0, 3" />
-
                         </Grid>
 
                     </Frame>
@@ -126,29 +133,44 @@
                     </CollectionView.ItemsLayout>
                 </CollectionView>
             </StackLayout>
-
+            <Grid IsVisible="{Binding IsLoading}"
+                      VerticalOptions="FillAndExpand"
+                      HorizontalOptions="FillAndExpand">
+                <BoxView Color="Black"/>
+                <StackLayout HorizontalOptions="Center"
+                             VerticalOptions="Center">
+                    <ActivityIndicator IsRunning="True"
+                                       Color="White"
+                                       HorizontalOptions="Center"/>
+                    <Label x:Name="LoadingTextLabel"  
+                           Text="{Binding LoadingText}"
+                           TextColor="White"
+                           HorizontalOptions="Center"
+                           FontSize="18"/>
+                </StackLayout>
+            </Grid>
 
             <StackLayout x:Name="DefaultStack"
                          IsVisible="True"
                          BackgroundColor="Black">
-                <Grid IsVisible="{Binding IsLoading}"
-      VerticalOptions="FillAndExpand"
-      HorizontalOptions="FillAndExpand">
-                    <BoxView Color="Black"/>
-                    <StackLayout HorizontalOptions="Center"
-         VerticalOptions="Center">
-                        <ActivityIndicator IsRunning="True"
-           Color="White"
-           HorizontalOptions="Center"/>
-                        <Label x:Name="LoadingTextLabel"  Text="{Binding LoadingText}"
-               TextColor="White"
-               HorizontalOptions="Center"
-               FontSize="18"/>
-                    </StackLayout>
+                <Grid ColumnDefinitions="Auto,Auto,Auto,*">
+                    <Label Text="Best Movies" 
+                           Style="{StaticResource ExtraLargeLabel}" 
+                           Margin="10, 0, 0, 0" 
+                           IsVisible="{Binding IsNotLoading}" 
+                           TextColor="White"
+                           Grid.Column="0"/>
+                    <Button Text="Enable Sort" 
+                            Clicked="OnEnableSortingClicked" 
+                            IsVisible="{Binding IsNotLoading}" 
+                            WidthRequest="110" 
+                            HeightRequest="35"
+                            HorizontalOptions="End"
+                            Margin="0,5,10,0" 
+                            BackgroundColor="Magenta"
+                            Grid.Column="3"/>
                 </Grid>
-                <Button Text="Enable Sorting" Clicked="OnEnableSortingClicked" IsVisible="{Binding IsNotLoading}"/>
 
-                <Label Text="Best Movies" Style="{StaticResource ExtraLargeLabel}" Margin="10, 0, 0, 0" IsVisible="{Binding IsNotLoading}" TextColor="White"/>
                 <CollectionView ItemsSource="{Binding BestMovies}"
                 ItemTemplate="{StaticResource MovieTemplate}" IsVisible="{Binding IsNotLoading}">
                     <CollectionView.ItemsLayout>

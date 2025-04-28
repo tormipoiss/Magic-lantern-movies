@@ -89,7 +89,7 @@
            Text="View Comments"
            TextColor="White"
             BackgroundColor="Gray"
-            HeightRequest="25"
+            HeightRequest="44"
             WidthRequest="250">
 
             </Button>

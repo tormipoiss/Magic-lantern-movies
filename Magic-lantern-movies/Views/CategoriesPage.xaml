@@ -19,7 +19,7 @@
                 <Frame HeightRequest="50"
                        Padding="0"
                        CornerRadius="12" BackgroundColor="#242323"
-                       BorderColor="#1f1e1e">
+                       BorderColor="Magenta">
                     <Grid Padding="0">
                         <Label Text="{Binding .}" 
                                VerticalOptions="Center"

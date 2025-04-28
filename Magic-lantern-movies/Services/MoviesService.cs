@@ -65,7 +65,7 @@ namespace Services
             }
             try
             {
-                var movies = new List<Movie>();
+                var tempMovies = new List<string>();
                 const string api_key = "91e0d4296bdfc99f07241e1b39b1f41f";
                 for (int i = 0; i <= 5; i++)
                 {
@@ -76,6 +76,10 @@ namespace Services
                         PopularMoviesJson data = JsonConvert.DeserializeObject<PopularMoviesJson>(content);
                         foreach (MovieObj movieObj in data.Results)
                         {
+                            if (tempMovies.Contains(movieObj.Title))
+                            {
+                                continue;
+                            }
                             var movie = new Movie();
                             var movieDetailsResp = await _httpClient.GetAsync($"https://api.themoviedb.org/3/movie/{movieObj.Id}?api_key=" + api_key);
                             var detailsContent = await movieDetailsResp.Content.ReadAsStringAsync();
@@ -91,6 +95,7 @@ namespace Services
                             movie.PublicationDate = DateTime.Parse(movieObj.Release_date.Replace("-", "/"));
                             var result = await _databaseContext.SaveMovieAsync(movie);
                             Debug.WriteLine($"Movie '{movie.Name}' saved with ID: {result}");
+                            tempMovies.Add(movieObj.Title);
                             await Task.Delay(200);
 
                         }
