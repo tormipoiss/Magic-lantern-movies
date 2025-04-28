@@ -56,6 +56,7 @@ namespace MoveXUnitTests
             
         }
 
+        [Fact]
         public void Constructor_ShouldIntializeProperties()
         {
             // Arrange and ACT as well
