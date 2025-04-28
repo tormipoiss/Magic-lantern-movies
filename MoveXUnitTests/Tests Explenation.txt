@@ -27,5 +27,8 @@ Test Nr 2
 Kontrollib kas kategooriat saab eemaldad a listist
 
 
-Test Nr 4
+Test Nr 3
 Kontrollib kas kategooria list on õigesti tühjendatud
+
+Test Nr 4
+Kontrollib et kas kategooria list on tühi ja tagastab kas on või mitte
