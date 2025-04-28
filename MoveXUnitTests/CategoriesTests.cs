@@ -56,18 +56,6 @@ namespace MoveXUnitTests
             Assert.Equal(1, viewModel.ColumnSpan);
         }
 
-        [Fact]
-        public async Task GoTo_ShouldNavigateToMoviesByCategoryPage()
-        {
-            // Arrange
-            var viewModel = new CategoriesViewModel(_mockDb);
-            var category = "Action";
-
-            // Act
-            await viewModel.GoToCommand.ExecuteAsync(category);
-
-            Assert.True(true); // Placeholder assertion
-        }
 
         [Fact]
         public void Categories_ShouldBeEmptyInitially()

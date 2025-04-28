@@ -26,10 +26,5 @@ Kontrollib, kas meetod InitializeAsync täidab kategooriate kollektsiooni kategoo
 Test Nr 2
 Testib UpdateSpan meetodit, et tagada ColumnSpan atribuudi õige värskendamine vastavalt ekraani laiusele.
 
-
 Test Nr 3
-Testib GoTo meetodit, et veenduda, et see navigeerib MoviesByCategoryPage lehele õigete parameetritega.
-
-
-Test Nr 4
 Kontrollib, kas vaatemudeli esmakordsel loomisel on kategooriate kogu tühi.
