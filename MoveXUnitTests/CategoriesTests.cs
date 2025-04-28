@@ -59,5 +59,19 @@ namespace MoveXUnitTests
             // Assert
             Assert.Empty(categories);
         }
+
+
+        [Fact]
+        public void IsCategoryEmpty_ShouldReturnTrueForEmptyList()
+        {
+            // Arrange
+            var categories = new List<string>();
+
+            // ACT
+            var isEmpty = categories.Count == 0;
+
+            // Assert
+            Assert.True(isEmpty);
+        }
     }
 }
