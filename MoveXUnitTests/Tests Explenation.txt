@@ -21,14 +21,15 @@ See test vaatab, kas kommentaariobjekti saab initsialiseerida selle vastavate om
 [[Categories Tests]]
 
 Test Nr 1
-Testib kas kategooriat saab lisada listi
+Kontrollib, kas meetod InitializeAsync täidab kategooriate kollektsiooni kategooriate loendist pärit kategooriate nimedega.
 
 Test Nr 2
-Kontrollib kas kategooriat saab eemaldad a listist
+Testib UpdateSpan meetodit, et tagada ColumnSpan atribuudi õige värskendamine vastavalt ekraani laiusele.
 
 
 Test Nr 3
-Kontrollib kas kategooria list on õigesti tühjendatud
+Testib GoTo meetodit, et veenduda, et see navigeerib MoviesByCategoryPage lehele õigete parameetritega.
+
 
 Test Nr 4
-Kontrollib et kas kategooria list on tühi ja tagastab kas on või mitte
+Kontrollib, kas vaatemudeli esmakordsel loomisel on kategooriate kogu tühi.
