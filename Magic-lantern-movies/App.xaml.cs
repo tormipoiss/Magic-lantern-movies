@@ -4,6 +4,7 @@ using Microsoft.UI.Windowing;
 using Windows.Graphics;
 #endif
 
+using Data;
 using Services;
 using System.Diagnostics;
 
@@ -11,11 +12,24 @@ namespace Magic_lantern_movies
 {
     public partial class App : Application
     {
-        const int WindowWidth = 540;
+        //const int WindowWidth = 540;
+        const int WindowWidth = 575;
         const int WindowHeight = 1000;
+
         public App()
         {
             InitializeComponent();
+
+            AppDomain.CurrentDomain.UnhandledException += (sender, e) =>
+            {
+                System.Diagnostics.Debug.WriteLine($"Unhandled Exception: {e.ExceptionObject}");
+            };
+
+            TaskScheduler.UnobservedTaskException += (sender, e) =>
+            {
+                System.Diagnostics.Debug.WriteLine($"Unobserved Task Exception: {e.Exception}");
+                e.SetObserved();
+            };
 
             MainPage = new AppShell();
 
@@ -24,9 +38,9 @@ namespace Magic_lantern_movies
                 // Initialize services asynchronously
                 Task.Run(async () =>
                 {
-                    var moviesService = MauiProgram.Services.GetRequiredService<MoviesService>();
+                    var moviesService = ServiceLocator.GetService<MoviesService>();
                     await moviesService.InitializeMoviesAsync();
-                }).Wait(); // Only for demonstration; prefer async startup in real apps
+                }).Wait();
             }
             catch (Exception ex)
             {
