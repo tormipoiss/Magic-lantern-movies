@@ -18,4 +18,24 @@ sama vastupidi et kui kuupäevavahemik on määratud siis tagab et kuu värskendatak
 Test Nr 4
 See test vaatab, kas kommentaariobjekti saab initsialiseerida selle vastavate omaduste kehtivate väärtustega.
 
-[[View Tests]]
+[[Categories Tests]]
+
+Test Nr 1
+Testib kas kategooriat saab lisada listi
+
+Test Nr 2
+Kontrollib kas kategooriat saab eemaldad a listist
+
+
+Test Nr 3
+Kontrollib, kas kategooriate loend on listis õigesti määratud
+
+Test Nr 4
+Kontrollib kas kategooria list on õigesti tühjendatud
+
+
+
+
+
+
+[[FilmDetails Tests]]
